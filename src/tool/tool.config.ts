@@ -15,6 +15,13 @@ const toolConfig: ToolConfig = {
     statusBar: true,
     darkMode: true,
   },
+  theme: {
+    accent: '#3b82f6',
+    accentHover: '#2563eb',
+    accentSubtle: 'rgba(59, 130, 246, 0.08)',
+    brand: 'Case Converter Pro',
+    icon: '\u{1F4DD}',
+  },
 };
 
 export default toolConfig;

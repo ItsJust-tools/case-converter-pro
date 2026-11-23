@@ -69,11 +69,17 @@ vi.mock('@/tool', () => ({
 vi.mock('@/tool/tool-definition', () => ({
   caseConverterTool: {
     serialize: (state: unknown) => JSON.stringify(state),
-    deserialize: () => ({ success: true, data: { input: 'From Shared Url', multiLine: false, history: [] } }),
+    deserialize: () => ({
+      success: true,
+      data: { input: 'From Shared Url', multiLine: false, history: [] },
+    }),
   },
   baseConverterTool: {
     serialize: (state: unknown) => JSON.stringify(state),
-    deserialize: () => ({ success: true, data: { input: 'From Shared Url', multiLine: false, history: [] } }),
+    deserialize: () => ({
+      success: true,
+      data: { input: 'From Shared Url', multiLine: false, history: [] },
+    }),
   },
 }));
 vi.mocked;

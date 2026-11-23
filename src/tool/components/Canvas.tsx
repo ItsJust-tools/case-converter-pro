@@ -95,7 +95,10 @@ export const Canvas: React.FC<CanvasProps> = ({ state, onChange, onUndo }) => {
           />
           Multi-line mode (convert each line independently)
         </label>
-        <div className="stats-panel flex gap-4 text-xs text-gray-600 dark:text-gray-400" data-testid="stats-panel">
+        <div
+          className="stats-panel flex gap-4 text-xs text-gray-600 dark:text-gray-400"
+          data-testid="stats-panel"
+        >
           <span data-testid="stat-words">{stats.words} words</span>
           <span data-testid="stat-chars">{stats.chars} chars</span>
           <span data-testid="stat-lines">{stats.lines} lines</span>

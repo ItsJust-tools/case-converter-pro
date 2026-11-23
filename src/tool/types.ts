@@ -1,13 +1,5 @@
 export type CaseFormat =
-  | 'camel'
-  | 'pascal'
-  | 'snake'
-  | 'kebab'
-  | 'constant'
-  | 'title'
-  | 'dot'
-  | 'train'
-  | 'sentence';
+  'camel' | 'pascal' | 'snake' | 'kebab' | 'constant' | 'title' | 'dot' | 'train' | 'sentence';
 
 export interface CaseFormatDef {
   id: CaseFormat;

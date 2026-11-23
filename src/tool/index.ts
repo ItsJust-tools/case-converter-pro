@@ -16,11 +16,5 @@ export { ToolSidebar } from './components/tool-sidebar';
 export { Canvas } from './components/Canvas';
 export { Sidebar } from './components/Sidebar';
 export { Toolbar } from './components/Toolbar';
-export type {
-  ToolState,
-  CaseFormat,
-  CaseFormatDef,
-  ConversionRow,
-  TextStats,
-} from './types';
+export type { ToolState, CaseFormat, CaseFormatDef, ConversionRow, TextStats } from './types';
 export { CASE_FORMATS, DEFAULT_STATE, MAX_HISTORY } from './types';

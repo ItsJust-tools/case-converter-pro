@@ -16,7 +16,14 @@ describe('tokenize', () => {
   it('splits on whitespace and punctuation', () => {
     expect(tokenize('hello world')).toEqual(['hello', 'world']);
     expect(tokenize('hello, world!')).toEqual(['hello', 'world']);
-    expect(tokenize('snake_case kebab-case dot.case')).toEqual(['snake', 'case', 'kebab', 'case', 'dot', 'case']);
+    expect(tokenize('snake_case kebab-case dot.case')).toEqual([
+      'snake',
+      'case',
+      'kebab',
+      'case',
+      'dot',
+      'case',
+    ]);
   });
 
   it('splits camelCase humps', () => {
@@ -36,7 +43,9 @@ describe('tokenize', () => {
 
 describe('tokensToCase', () => {
   it('converts to snake_case', () => {
-    expect(tokensToCase(tokenize('getUserByIDFromCache'), 'snake')).toBe('get_user_by_id_from_cache');
+    expect(tokensToCase(tokenize('getUserByIDFromCache'), 'snake')).toBe(
+      'get_user_by_id_from_cache'
+    );
   });
 
   it('converts to camelCase', () => {
@@ -61,9 +70,15 @@ describe('tokensToCase', () => {
 
   it('preserves acronyms in mixed formats', () => {
     expect(tokensToCase(tokenize('parse HTML API response'), 'camel')).toBe('parseHTMLAPIResponse');
-    expect(tokensToCase(tokenize('parse HTML API response'), 'pascal')).toBe('ParseHTMLAPIResponse');
-    expect(tokensToCase(tokenize('parse HTML API response'), 'title')).toBe('Parse HTML API Response');
-    expect(tokensToCase(tokenize('parse HTML API response'), 'train')).toBe('Parse-HTML-API-Response');
+    expect(tokensToCase(tokenize('parse HTML API response'), 'pascal')).toBe(
+      'ParseHTMLAPIResponse'
+    );
+    expect(tokensToCase(tokenize('parse HTML API response'), 'title')).toBe(
+      'Parse HTML API Response'
+    );
+    expect(tokensToCase(tokenize('parse HTML API response'), 'train')).toBe(
+      'Parse-HTML-API-Response'
+    );
   });
 
   it('returns empty string for empty tokens', () => {
@@ -179,7 +194,8 @@ describe('state serialization', () => {
   });
 
   it('round-trips URL query string via lz-string', async () => {
-    const { compressToEncodedURIComponent, decompressFromEncodedURIComponent } = await import('lz-string');
+    const { compressToEncodedURIComponent, decompressFromEncodedURIComponent } =
+      await import('lz-string');
     const original: ToolState = { input: 'round trip state', multiLine: true, history: ['h1'] };
     const encoded = compressToEncodedURIComponent(caseConverterTool.serialize(original));
     const params = new URLSearchParams({ state: encoded });
@@ -221,11 +237,17 @@ describe('state serialization', () => {
 
 describe('URL state wiring', () => {
   it('deserialize handles data coming from query param flows', async () => {
-    const { compressToEncodedURIComponent, decompressFromEncodedURIComponent } = await import('lz-string');
+    const { compressToEncodedURIComponent, decompressFromEncodedURIComponent } =
+      await import('lz-string');
     const original: ToolState = { input: 'url shared text', multiLine: false, history: [] };
     const url = new URL('https://example.com/');
-    url.searchParams.set('state', compressToEncodedURIComponent(caseConverterTool.serialize(original)));
-    const fromUrl = decompressFromEncodedURIComponent(new URLSearchParams(url.search).get('state') ?? '');
+    url.searchParams.set(
+      'state',
+      compressToEncodedURIComponent(caseConverterTool.serialize(original))
+    );
+    const fromUrl = decompressFromEncodedURIComponent(
+      new URLSearchParams(url.search).get('state') ?? ''
+    );
     const result = caseConverterTool.deserialize(JSON.parse(fromUrl ?? ''));
     expect(result.success).toBe(true);
     if (result.success) expect(result.data.input).toBe('url shared text');

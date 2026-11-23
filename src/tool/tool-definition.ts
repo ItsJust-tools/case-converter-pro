@@ -119,8 +119,25 @@ function acronymOf(word: string): string | null {
 }
 
 const MINOR_WORDS = new Set([
-  'a', 'an', 'and', 'as', 'at', 'but', 'by', 'for', 'if', 'in',
-  'nor', 'of', 'on', 'or', 'so', 'the', 'to', 'up', 'yet',
+  'a',
+  'an',
+  'and',
+  'as',
+  'at',
+  'but',
+  'by',
+  'for',
+  'if',
+  'in',
+  'nor',
+  'of',
+  'on',
+  'or',
+  'so',
+  'the',
+  'to',
+  'up',
+  'yet',
 ]);
 
 export function tokensToCase(tokens: string[], format: CaseFormat): string {
@@ -149,7 +166,10 @@ export function tokensToCase(tokens: string[], format: CaseFormat): string {
     case 'kebab':
       return words.map((w) => w.toLowerCase()).join('-');
     case 'constant':
-      return words.map((w) => w.toLowerCase()).join('_').toUpperCase();
+      return words
+        .map((w) => w.toLowerCase())
+        .join('_')
+        .toUpperCase();
     case 'dot':
       return words.map((w) => w.toLowerCase()).join('.');
     case 'train':
@@ -189,7 +209,8 @@ export function tokensToCase(tokens: string[], format: CaseFormat): string {
  * and results are joined with the same line structure.
  */
 export function convertAll(state: ToolState): ConversionRow[] {
-  const convert = (text: string): string[] => CASE_FORMATS.map((f) => tokensToCase(tokenize(text), f.id));
+  const convert = (text: string): string[] =>
+    CASE_FORMATS.map((f) => tokensToCase(tokenize(text), f.id));
   let values: string[];
   if (state.multiLine) {
     const lines = state.input.split('\n');
@@ -243,14 +264,13 @@ export const caseConverterTool: Tool<ToolState> = {
     if (typeof v.input !== 'string') {
       return {
         success: false,
-        error: 'Invalid data format: expected { input: string, multiLine?: boolean, history?: string[] }',
+        error:
+          'Invalid data format: expected { input: string, multiLine?: boolean, history?: string[] }',
       };
     }
     const multiLine = typeof v.multiLine === 'boolean' ? v.multiLine : DEFAULT_STATE.multiLine;
     const history = Array.isArray(v.history)
-      ? v.history
-          .filter((h): h is string => typeof h === 'string')
-          .slice(0, MAX_HISTORY)
+      ? v.history.filter((h): h is string => typeof h === 'string').slice(0, MAX_HISTORY)
       : [];
     return {
       success: true,

@@ -102,13 +102,18 @@ describe('app and seo', () => {
     });
     expect(baseConverterTool.deserialize({ nope: true })).toEqual({
       success: false,
-      error: 'Invalid data format: expected { input: string, multiLine?: boolean, history?: string[] }',
+      error:
+        'Invalid data format: expected { input: string, multiLine?: boolean, history?: string[] }',
     });
-    expect(baseConverterTool.serialize({ ...DEFAULT_STATE, input: '11' })).toContain('"input":"11"');
-    expect(baseConverterTool.deserialize({ input: '11', multiLine: true, history: ['a'] })).toEqual({
-      success: true,
-      data: { input: '11', multiLine: true, history: ['a'] },
-    });
+    expect(baseConverterTool.serialize({ ...DEFAULT_STATE, input: '11' })).toContain(
+      '"input":"11"'
+    );
+    expect(baseConverterTool.deserialize({ input: '11', multiLine: true, history: ['a'] })).toEqual(
+      {
+        success: true,
+        data: { input: '11', multiLine: true, history: ['a'] },
+      }
+    );
     expect(baseConverterTool.id).toBe(toolConfig.id);
     expect(baseConverterTool.name).toBe(toolConfig.name);
   });
@@ -117,7 +122,11 @@ describe('app and seo', () => {
     render(
       <>
         <ToolToolbar />
-        <ToolSidebar state={{ ...DEFAULT_STATE, input: 'ff' }} fontSize={16} onFontSizeChange={() => {}} />
+        <ToolSidebar
+          state={{ ...DEFAULT_STATE, input: 'ff' }}
+          fontSize={16}
+          onFontSizeChange={() => {}}
+        />
         <ToolCanvas state={{ ...DEFAULT_STATE, input: 'ff' }} fontSize={16} />
       </>
     );
